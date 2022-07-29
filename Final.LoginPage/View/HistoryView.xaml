@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="Final.LoginPage.View.HistoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Final.LoginPage.View"
+             xmlns:vm="clr-namespace:Final.LoginPage.ViewModel"
+             
+             mc:Ignorable="d" 
+                          d:DesignHeight="700" d:DesignWidth="1000" 
+ Background="White">
+    <UserControl.DataContext>
+        <vm:HistoryViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+
+            </Grid.RowDefinitions>
+            <Grid Name="licensePlateTextBlock">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Margin="10 5 0 0" Text="License Plate:"></TextBlock>
+                <Border  Grid.Column="1" Width="200">
+                    <TextBox Text="{Binding LicensePlate}">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="License Plate Number" Foreground="LightGray" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                </Border>
+            </Grid>
+            <ComboBox Grid.Column="1" SelectedItem="{Binding SelectedTypeSearch}" ItemsSource="{Binding Path=Options}">
+                <!--<ComboBoxItem Name="option1">Newest</ComboBoxItem>
+                <ComboBoxItem Name="option2" IsSelected="True">All Car On Date</ComboBoxItem>
+                <ComboBoxItem Name="option3">All The Time</ComboBoxItem>-->
+            </ComboBox>
+            <DatePicker Grid.Column="2" SelectedDateFormat="Short" SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}" 
+                       Height="25" Width="120" Name="datePicker1" >
+                
+            </DatePicker>
+
+            <Button Grid.Column="3" Content="Search" Width="80" Height="30" Command="{Binding ButtonCommand}">
+            </Button>
+        </Grid>
+        <DataGrid ItemsSource="{Binding ListDataGrid}" Width="400" CanUserAddRows="False" AutoGenerateColumns="False" Background="Red" Margin="0,50,0,0">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Front Image">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Image Source="{Binding FrontImageLink}"  Width="50" Height="50"/>
+                            </Grid>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Back Image">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Image Source="/Resource/Img/ParkingSpace.png"  Width="50" Height="50"/>
+                            </Grid>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="License Plate" Binding="{Binding Path=LicensePlateNumber}">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Time In" Binding="{Binding Path=TimeIn}">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Time Out" Binding="{Binding Path=TimeOut}">
+                </DataGridTextColumn>
+
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</UserControl>

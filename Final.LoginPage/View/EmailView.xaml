@@ -1,0 +1,120 @@
+﻿<UserControl x:Class="Final.LoginPage.View.EmailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Final.LoginPage.View"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:vm="clr-namespace:Final.LoginPage.ViewModel"
+             mc:Ignorable="d" 
+             xmlns:viewModel="clr-namespace:Final.LoginPage.ViewModel" 
+             xmlns:convert="clr-namespace:Final.LoginPage.Converter"
+                         d:DesignHeight="700" d:DesignWidth="1000" 
+>
+    <UserControl.Resources>
+
+        <!-- 
+        Converts a color value to a brush.
+        -->
+        <convert:ColorToBrushConverter 
+            x:Key="colorToBrushConverter"
+            />
+
+        <!--
+        A data-template that defines the visuals for a rectangle.
+        -->
+        <DataTemplate 
+            DataType="{x:Type viewModel:RectangleViewModel}"
+            >
+            <!-- 
+            The Rectangle is embedded in the Grid so that we can set the Margin
+            The margin is set so that the ListBox item selection fits nicely around the Rectangle.
+            -->
+            <Grid
+                Margin="0,2,2,2"
+                >
+                <Rectangle
+                    Width="{Binding Width}"
+                    Height="{Binding Height}"
+                    Fill="{Binding Color, Converter={StaticResource colorToBrushConverter}}"
+                    Cursor="Hand"
+                    
+                    />
+                <TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Id}" ></TextBlock>
+            </Grid>
+        </DataTemplate>
+
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <vm:ParkingSpaceViewModel/>
+        
+    </UserControl.DataContext>
+
+    <Grid>
+
+        <!--
+	    This ListBox presents the colored rectangles.
+        
+        The data-template that defines the visuals for each rectangle is in the 
+        resources section at the start of this file.
+        -->
+        <ListBox Width="800" Height="450"
+            x:Name="listBox"
+            ItemsSource="{Binding Rectangles}"
+            SelectionMode="Extended" 
+            >
+            
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemContainerStyle>
+                <Style
+                    TargetType="ListBoxItem"
+                    >
+                    <Setter
+                        Property="Canvas.Left"
+                        Value="{Binding X}"
+                        />
+                    <Setter
+                        Property="Canvas.Top"
+                        Value="{Binding Y}"
+                        />
+                    <!--todo:
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                This border is used for indicating selection.
+                                Normally it is transparent, when the item is selected the border is set to blue.
+                                <Border 
+                                    Name="Border"
+                                    BorderThickness="1"
+                                    Padding="2"
+                                    >
+                                    <ContentPresenter />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    When the ListBoxItem is selected draw a simple blue border around it.
+                                    <Trigger Property="IsSelected" Value="true">
+                                        <Setter 
+                                            TargetName="Border" 
+                                            Property="BorderBrush"
+                                            Value="Blue"
+                                            />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    -->
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.Background >
+                <ImageBrush ImageSource="/Resource/Img/ParkingSpace.png" />
+            </ListBox.Background>
+        </ListBox>
+
+    </Grid>
+</UserControl>

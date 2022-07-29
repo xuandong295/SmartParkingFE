@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="Final.LoginPage.View.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:vm="clr-namespace:Final.LoginPage.ViewModel" 
+             xmlns:converters="clr-namespace:Final.LoginPage.Common.Converter"
+             mc:Ignorable="d" 
+                          d:DesignHeight="700" d:DesignWidth="1000" 
+>
+    <UserControl.DataContext>
+        <vm:HomeViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <converters:NullImageConverter x:Key="nullImageConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <iconPacks:PackIconMaterialDesign HorizontalAlignment="Center"
+                                              Foreground="{StaticResource PrimaryDarkBrush}"
+                                              Width="100" Height="100"
+                                              Kind="Home"/>
+            <TextBlock FontSize="40" FontWeight="Bold" 
+                       VerticalAlignment="Center" HorizontalAlignment="Center" 
+                       Foreground="{StaticResource PrimaryDarkBrush}"
+                       Text="{Binding Title}"/>
+        </StackPanel>
+        <TextBlock></TextBlock>
+        <Grid Margin="50,50,0,0" 
+               HorizontalAlignment="Left"
+               Height="200" 
+               Width="200" 
+               VerticalAlignment="Top" >
+        <Image 
+               Source="{Binding FrontImageLink, Converter={StaticResource nullImageConverter}}"/>
+        </Grid>
+        <Grid  Margin="0,50,50,0"
+               HorizontalAlignment="Right"
+               Height="200" 
+               Width="200" 
+               VerticalAlignment="Top" >
+            <TextBlock></TextBlock>
+            <Image
+               Source="{Binding BackImageLink, Converter={StaticResource nullImageConverter}}"
+               />
+        </Grid>
+        <Grid Margin="40,40,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="300" Height="200">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" TextWrapping="Wrap" Text="License Plate Number:"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" TextWrapping="Wrap" Text="Time In:"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" TextWrapping="Wrap"  Text="Time Out:"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding LicensePlateNumber}"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="{Binding TimeIn}"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap"  Text="{Binding TimeOut}"/>
+        </Grid>
+        
+
+    </Grid>
+</UserControl>
