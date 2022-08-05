@@ -16,5 +16,8 @@ namespace Final.LoginPage.Model
         public long TimeIn { get; set; }
         public long TimeOut { get; set; }
         public int Status { get; set; }
+        public DateTime DateTimeIn { get; set; }
+        public DateTime DateTimeOut { get; set; }
+
     }
 }

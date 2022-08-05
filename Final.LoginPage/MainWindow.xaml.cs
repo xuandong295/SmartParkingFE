@@ -24,5 +24,22 @@ namespace Final.LoginPage
         {
             InitializeComponent();
         }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                DragMove();
+
+            }
+            catch (Exception)
+            {
+
+            }
+        }
     }
 }

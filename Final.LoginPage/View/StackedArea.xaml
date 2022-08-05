@@ -6,24 +6,36 @@
              xmlns:local="clr-namespace:Final.LoginPage.View" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Button Height="30" Click="ChangeStackModeOnClick" Width="120" Margin="10 0">
-                Change StackMode
-            </Button>
-        </StackPanel>
-        <lvc:CartesianChart Grid.Row="2" Series="{Binding SeriesCollection}"  LegendLocation="Right">
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Year" LabelFormatter="{Binding XFormatter}"></lvc:Axis>
-            </lvc:CartesianChart.AxisX>
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Population" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
-    </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <lvc:CartesianChart Name="Chart" Grid.Row="2" Series="{Binding SeriesCollection}" >
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Name="Axis">
+                        <lvc:Axis.Sections>
+                            <lvc:AxisSection Value="7" StrokeThickness="3" Stroke="#F9D648">
+                                <lvc:AxisSection.Fill>
+                                    <SolidColorBrush Color="#A3A3FF" Opacity=".4"></SolidColorBrush>
+                                </lvc:AxisSection.Fill>
+                            </lvc:AxisSection>
+                            <lvc:AxisSection Value="4" SectionWidth="8" Label="Good">
+                                <lvc:AxisSection.Fill>
+                                    <SolidColorBrush Color="#CDCDCD" Opacity=".4"></SolidColorBrush>
+                                </lvc:AxisSection.Fill>
+                            </lvc:AxisSection>
+                            <lvc:AxisSection Value="0" SectionWidth="4" Label="Bad">
+                                <lvc:AxisSection.Fill>
+                                    <SolidColorBrush Color="#FF8585" Opacity=".4"></SolidColorBrush>
+                                </lvc:AxisSection.Fill>
+                            </lvc:AxisSection>
+                        </lvc:Axis.Sections>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisY>
+            
+            </lvc:CartesianChart>
+        </Grid>
 </UserControl>

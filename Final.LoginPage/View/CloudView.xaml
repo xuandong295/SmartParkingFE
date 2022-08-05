@@ -7,7 +7,8 @@
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1000" 
-             d:DataContext="{d:DesignInstance local:CloudView}">
+             d:DataContext="{d:DesignInstance local:CloudView}"
+             Background="White">
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -18,19 +19,15 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <lvc:PieChart Grid.Row="0" Grid.Column="0" LegendLocation="Bottom" DataClick="Chart_OnDataClick" Hoverable="False" DataTooltip="{x:Null}">
-            <lvc:PieChart.Series>
-                <lvc:PieSeries Title="Maria" Values="3" DataLabels="True"
-                               LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Charles" Values="4" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Frida" Values="6" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-            </lvc:PieChart.Series>
+        <lvc:PieChart Grid.Row="0" Grid.Column="0" Series="{Binding SeriesCollection}" LegendLocation="Bottom" DataClick="Chart_OnDataClick" Hoverable="False" InnerRadius="0">
+            <lvc:PieChart.ChartLegend>
+                <lvc:DefaultLegend BulletSize="15" TextBlock.FontSize="8"></lvc:DefaultLegend>
+            </lvc:PieChart.ChartLegend>
+            <lvc:PieChart.DataTooltip>
+                <lvc:DefaultTooltip BulletSize="20"></lvc:DefaultTooltip>
+            </lvc:PieChart.DataTooltip>
         </lvc:PieChart>
-        <local:StackedArea Grid.Row="1" Grid.Column="0">
+        <local:StackedArea Grid.Row="1" Grid.Column="0" Visibility="Hidden">
         </local:StackedArea>
         <local:BasicColumn Grid.Row="0" Grid.Column="1">
         </local:BasicColumn>

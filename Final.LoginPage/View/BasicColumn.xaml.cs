@@ -30,22 +30,22 @@ namespace Final.LoginPage.View
             {
                 new ColumnSeries
                 {
-                    Title = "2015",
-                    Values = new ChartValues<double> { 10, 50, 39, 50 }
+                    Title = "Cars in",
+                    Values = new ChartValues<double> { 54, 50, 39, 50, 87, 70, 90 }
                 }
             };
 
-            //adding series will update and animate the chart automatically
-            SeriesCollection.Add(new ColumnSeries
-            {
-                Title = "2016",
-                Values = new ChartValues<double> { 11, 56, 42 }
-            });
+            ////adding series will update and animate the chart automatically
+            //SeriesCollection.Add(new ColumnSeries
+            //{
+            //    Title = "2016",
+            //    Values = new ChartValues<double> { 11, 56, 42 }
+            //});
 
             //also adding values updates and animates the chart automatically
-            SeriesCollection[1].Values.Add(48d);
+            //SeriesCollection[1].Values.Add(48d);
 
-            Labels = new[] { "Maria", "Susan", "Charles", "Frida" };
+            Labels = new[] { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
             Formatter = value => value.ToString("N");
 
             DataContext = this;

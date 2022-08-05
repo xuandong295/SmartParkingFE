@@ -52,6 +52,7 @@
     </UserControl.DataContext>
 
     <Grid>
+        
 
         <!--
 	    This ListBox presents the colored rectangles.
@@ -112,9 +113,15 @@
                 </Style>
             </ListBox.ItemContainerStyle>
             <ListBox.Background >
-                <ImageBrush ImageSource="/Resource/Img/ParkingSpace.png" />
+                <ImageBrush ImageSource="C:\Users\Admin\Desktop\FinalProject\Final.LoginPage\Final.LoginPage\Resource\Img\ParkingArea.png" />
             </ListBox.Background>
         </ListBox>
+        <WrapPanel Margin="0 130 0 0" Width="160" Height="200"  HorizontalAlignment="Right" VerticalAlignment="Top">
+            
+            <TextBlock Foreground="Black" FontSize="40" Text="{Binding CurrentCarInParkingArea}"></TextBlock>
+            <TextBlock Foreground="Black" FontSize="30" Text="/"></TextBlock>
 
+            <TextBlock Foreground="Black" FontSize="30" Text="{Binding MaxCarInParkingSpace}"></TextBlock>
+        </WrapPanel>
     </Grid>
 </UserControl>

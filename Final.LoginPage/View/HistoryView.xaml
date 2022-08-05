@@ -18,7 +18,7 @@
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="150"/>
@@ -31,13 +31,13 @@
             <Grid Name="licensePlateTextBlock">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="150"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Column="0" Margin="10 5 0 0" Text="License Plate:"></TextBlock>
-                <Border  Grid.Column="1" Width="200">
+                <Border  Grid.Column="1" Width="140">
                     <TextBox Text="{Binding LicensePlate}">
                         <TextBox.Style>
                             <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
@@ -77,13 +77,13 @@
             <Button Grid.Column="3" Content="Search" Width="80" Height="30" Command="{Binding ButtonCommand}">
             </Button>
         </Grid>
-        <DataGrid ItemsSource="{Binding ListDataGrid}" Width="400" CanUserAddRows="False" AutoGenerateColumns="False" Background="Red" Margin="0,50,0,0">
+        <DataGrid Visibility="{Binding TableVisibility}" ItemsSource="{Binding ListDataGrid}" Width="700" CanUserAddRows="False" AutoGenerateColumns="False" Margin="0,100,0,0">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Front Image">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Image Source="{Binding FrontImageLink}"  Width="50" Height="50"/>
+                                <Image Source="{Binding FrontImageLink}"  Width="100" Height="100"/>
                             </Grid>
 
                         </DataTemplate>
@@ -93,7 +93,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Image Source="/Resource/Img/ParkingSpace.png"  Width="50" Height="50"/>
+                                <Image Source="{Binding BackImageLink}"  Width="100" Height="100"/>
                             </Grid>
 
                         </DataTemplate>
@@ -101,9 +101,9 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="License Plate" Binding="{Binding Path=LicensePlateNumber}">
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Time In" Binding="{Binding Path=TimeIn}">
+                <DataGridTextColumn Header="Time In" Binding="{Binding Path=DateTimeIn}">
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Time Out" Binding="{Binding Path=TimeOut}">
+                <DataGridTextColumn Header="Time Out" Binding="{Binding Path=DateTimeOut}">
                 </DataGridTextColumn>
 
 

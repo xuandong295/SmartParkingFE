@@ -1,4 +1,5 @@
 ﻿using Final.LoginPage.Common.Command;
+using Final.LoginPage.Helper;
 using Final.LoginPage.Model;
 using Newtonsoft.Json;
 using Prism.Mvvm;
@@ -21,7 +22,7 @@ namespace Final.LoginPage.ViewModel
         public const string ALL_CAR_ON_DATE = "All Car On Date";
         public const string ALL_THE_TIME = "All The Time";
         public ICommand ButtonCommand { get; set; }
-        public string licensePlate { get; set; }
+        public string licensePlate;
         public string LicensePlate
         {
             get { return licensePlate; }
@@ -35,7 +36,7 @@ namespace Final.LoginPage.ViewModel
                 }
             }
         }
-        public string selectedDate { get; set; }
+        public string selectedDate = DateTime.Now.AddDays(1).ToString();
         public string SelectedDate
         {
             get { return selectedDate; }
@@ -70,6 +71,21 @@ namespace Final.LoginPage.ViewModel
             get { return option; }
             set { option = value; }
         }
+        private Visibility tableVisibility;
+
+        public Visibility TableVisibility
+        {
+            get { return tableVisibility; }
+            set
+            {
+                if (tableVisibility != value)
+                {
+                    tableVisibility = value;
+                    RaisePropertyChanged("TableVisibility");
+                }
+            }
+        }
+
         public HistoryViewModel()
         {
             ButtonCommand = new RelayCommand(o => MainButtonClick(selectedTypeSearch));
@@ -79,10 +95,13 @@ namespace Final.LoginPage.ViewModel
             Options.Add(ALL_CAR_ON_DATE);
             Options.Add(ALL_THE_TIME);
             SelectedTypeSearch = ALL_CAR_ON_DATE;
+            TableVisibility = Visibility.Hidden;
+
         }
 
         private void MainButtonClick(object sender)
         {
+            TableVisibility = Visibility.Visible;
             if (selectedTypeSearch == NEWEST)
             {
                 var client = new RestClient();
@@ -95,6 +114,8 @@ namespace Final.LoginPage.ViewModel
                 var data = JsonConvert.DeserializeObject<InternalAPIResponseCode>(response.Content);
                 var carJson = data.Data.ToString();
                 var currentCar = JsonConvert.DeserializeObject<Car>(carJson);
+                currentCar.DateTimeIn = UnixTimestamp.UnixTimestampToDateTime(currentCar.TimeIn);
+                currentCar.DateTimeOut = UnixTimestamp.UnixTimestampToDateTime(currentCar.TimeOut);
                 listDataGrid.Clear();
                 listDataGrid.Add(currentCar);
             }
@@ -105,7 +126,6 @@ namespace Final.LoginPage.ViewModel
                 var index = SelectedDate.IndexOf(" ");
                 //var date = SelectedDate.Substring(index);
                 var date = SelectedDate.ToString().Remove(index).Replace("/", "-");
-                date = "7-27-2022";
                 var request = new RestRequest($"http://smartparking.local:5555/api/Car/car-information-on-date?date={date}", Method.Get);
                 request.AddHeader("Accept", "application/json");
                 request.AddHeader("Content-Type", "application/json");
@@ -118,6 +138,8 @@ namespace Final.LoginPage.ViewModel
                 listDataGrid.Clear();
                 foreach (var item in listCar)
                 {
+                    item.DateTimeIn = UnixTimestamp.UnixTimestampToDateTime(item.TimeIn);
+                    item.DateTimeOut = UnixTimestamp.UnixTimestampToDateTime(item.TimeOut);
                     listDataGrid.Add(item);
                 }
             }
@@ -137,6 +159,11 @@ namespace Final.LoginPage.ViewModel
                 listDataGrid.Clear();
                 foreach (var item in listCar)
                 {
+                    item.DateTimeIn = UnixTimestamp.UnixTimestampToDateTime(item.TimeIn);
+                    
+                        item.DateTimeOut = UnixTimestamp.UnixTimestampToDateTime(item.TimeOut);
+                    
+                    
                     listDataGrid.Add(item);
                 }
             }

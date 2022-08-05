@@ -20,12 +20,49 @@ namespace Final.LoginPage.ViewModel
         /// The list of rectangles that is displayed in the ListBox.
         /// </summary>
         private ObservableCollection<RectangleViewModel> rectangles = new ObservableCollection<RectangleViewModel>();
+        private int currentCarInParkingArea;
+        public int CurrentCarInParkingArea
+        {
+            get
+            {
+                return currentCarInParkingArea;
+            }
+            set
+            {
+                if (currentCarInParkingArea == value)
+                {
+                    return;
+                }
 
+                currentCarInParkingArea = value;
+
+                OnPropertyChanged("CurrentCarInParkingArea");
+            }
+        }
+        private int maxCarInParkingSpace;
+        public int MaxCarInParkingSpace
+        {
+            get
+            {
+                return maxCarInParkingSpace;
+            }
+            set
+            {
+                if (maxCarInParkingSpace == value)
+                {
+                    return;
+                }
+
+                maxCarInParkingSpace = value;
+
+                OnPropertyChanged("MaxCarInParkingSpace");
+            }
+        }
 
 
         #endregion Data Members
         IParkingSpaceService parkingSpaceService = new ParkingSpaceService();
-
+        IParkingAreaService parkingAreaService = new ParkingAreaService();
         public ParkingSpaceViewModel()
         {
             //
@@ -33,7 +70,7 @@ namespace Final.LoginPage.ViewModel
             //
             for (int i = 0; i < 12; i++)
             {
-                var r1 = new RectangleViewModel(150, 100 + i * 45, 30, 30, Colors.Green);
+                var r1 = new RectangleViewModel(44 + i * 26, 30 , 20, 20, Colors.Green);
                 r1.Id = i + 1;
                 rectangles.Add(r1);
             }
@@ -57,6 +94,9 @@ namespace Final.LoginPage.ViewModel
                 try
                 {
                     var parkingSpaces = await parkingSpaceService.LoadParkingDataAsync();
+                    var parkingArea = await parkingAreaService.LoadParkingDataAsync("A");
+                    CurrentCarInParkingArea = parkingArea.Current;
+                    MaxCarInParkingSpace = parkingArea.Maximum;
                     foreach (var item in parkingSpaces)
                     {
                         var obj = rectangles.Where(o => o.Id.ToString() == item.Position.ToString()).FirstOrDefault();

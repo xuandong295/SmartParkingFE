@@ -28,12 +28,12 @@ namespace Final.LoginPage
 
         private BindableBase _CurrentViewModel;
 
-        private string Bearer { get; set; }
         public BindableBase CurrentViewModel
         {
             get { return _CurrentViewModel; }
             set { SetProperty(ref _CurrentViewModel, value); }
         }
+        private string Bearer { get; set; }
 
         public CommandBase<string> NavCommand { get; private set; }
 
