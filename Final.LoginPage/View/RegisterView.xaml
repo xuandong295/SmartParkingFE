@@ -3,11 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Final.LoginPage.View"
+             xmlns:local="clr-namespace:Final.LoginPage.View" xmlns:vm="clr-namespace:Final.LoginPage.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1000" 
              Background="White"
 >
+    
         <Grid  Height="350" Width="525" Background="Bisque">
             <TextBlock Height="23" HorizontalAlignment="Left" Margin="10,5,0,0" Name="textBlockHeading" Text="Registration:" VerticalAlignment="Top" Width="110"  FontSize="17" FontStretch="ExtraCondensed"/>
             <!--Button as a Link button using style-->
@@ -42,20 +43,19 @@
                 <TextBlock Height="23" HorizontalAlignment="Left" Margin="67,80,0,0" Name="textBlockEmailId" Text="Username" VerticalAlignment="Top" Width="110" />
                 <TextBlock Height="23" HorizontalAlignment="Left" Margin="67,107,0,0" Name="textBlockPassword" Text="Password:" VerticalAlignment="Top" Width="110"  />
                 <TextBlock Height="23" HorizontalAlignment="Left" Margin="67,136,0,0" Name="textBlockConfirmPwd" Text="ConfirmPassword:" VerticalAlignment="Top" Width="110" Grid.RowSpan="2" />
-                <TextBlock Height="23" HorizontalAlignment="Left" Margin="67,166,0,0" Name="textBlockAddress" Text="LicensePlate" VerticalAlignment="Top" Width="110" />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="67,166,0,0" Name="textBlockLicensePlate" Text="LicensePlate" VerticalAlignment="Top" Width="110" />
                 <TextBox Height="23" HorizontalAlignment="Left" Margin="183,20,0,0" Name="textBoxFirstName" VerticalAlignment="Top" Width="222" />
                 <TextBox Height="23" HorizontalAlignment="Left" Margin="183,50,0,0" Name="textBoxLastName" VerticalAlignment="Top" Width="222" />
                 <TextBox Height="23" HorizontalAlignment="Left" Margin="183,80,0,0" Name="textBoxEmail" VerticalAlignment="Top" Width="222" />
                 <PasswordBox Height="23" HorizontalAlignment="Left" Margin="183,107,0,0" Name="passwordBox1" VerticalAlignment="Top" Width="222" />
                 <!--For password-->
                 <PasswordBox Height="23" HorizontalAlignment="Left" Margin="183,136,0,0" Name="passwordBoxConfirm" VerticalAlignment="Top" Width="222" />
-                <TextBox Height="23" HorizontalAlignment="Left" Margin="183,0,0,66" Name="textBoxAddress" VerticalAlignment="Bottom" Width="222" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="183,0,0,66" Name="textBoxLicensePlate" VerticalAlignment="Bottom" Width="222" />
                 <Button Content="Submit" Height="23" HorizontalAlignment="Left" Margin="183,204,0,0" Name="Submit" VerticalAlignment="Top" Width="70" Click="Submit_Click" />
                 <Button Content="Reset" Height="23" HorizontalAlignment="Left" Margin="259,204,0,0" Name="button2" VerticalAlignment="Top" Width="70" Click="button2_Click" />
                 <Button Content="Cancel" Height="23" HorizontalAlignment="Right" Margin="0,204,60,0" Name="button3" VerticalAlignment="Top" Width="70" Click="button3_Click" />
             </Grid>
-        <Grid x:Name = "MainConCurrentViewtent" Grid.Row = "1">
-            <ContentControl Name="LoginControl" />
-        </Grid>
+    
     </Grid>
+ 
 </UserControl>

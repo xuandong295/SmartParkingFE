@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using Final.LoginPage.Common.Command;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,7 @@ namespace Final.LoginPage.ViewModel
 {
     public class RegisterViewModel : BindableBase
     {
+       
+
     }
 }

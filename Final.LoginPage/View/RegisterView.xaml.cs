@@ -1,4 +1,6 @@
-﻿using Final.LoginPage.ViewModel;
+﻿using Final.LoginPage.Model;
+using Final.LoginPage.Services;
+using Final.LoginPage.ViewModel;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -24,17 +26,18 @@ namespace Final.LoginPage.View
     public partial class RegisterView : UserControl
     {
         private MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
+        private readonly IUserService userService;
         public RegisterView()
         {
+            userService = new UserService();
             InitializeComponent();
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
             MainWindow login = new MainWindow();
-            login.Show();
-            LoginControl.Visibility = Visibility.Collapsed;
-
+            login.ShowDialog();
         }
         private void button2_Click(object sender, RoutedEventArgs e)
         {
@@ -45,15 +48,26 @@ namespace Final.LoginPage.View
             textBoxFirstName.Text = "";
             textBoxLastName.Text = "";
             textBoxEmail.Text = "";
-            textBoxAddress.Text = "";
+            textBoxLicensePlate.Text = "";
             passwordBox1.Password = "";
             passwordBoxConfirm.Password = "";
         }
         private void button3_Click(object sender, RoutedEventArgs e)
         {
-            LoginControl.Visibility = Visibility.Collapsed;
+            this.Close();
+            MainWindow login = new MainWindow();
+            login.ShowDialog();
+            
         }
 
+        private void Close()
+        {
+            for (int i = 0; i < Application.Current.Windows.Count ; i++)
+            {
+                var w = Application.Current.Windows[i];
+                w.Hide();
+            }
+        }
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
@@ -74,6 +88,7 @@ namespace Final.LoginPage.View
                 string lastname = textBoxLastName.Text;
                 string email = textBoxEmail.Text;
                 string password = passwordBox1.Password;
+                string licensePlate = textBoxLicensePlate.Text;
                 if (passwordBox1.Password.Length == 0)
                 {
                     errormessage.Text = "Enter password.";
@@ -92,17 +107,26 @@ namespace Final.LoginPage.View
                 else
                 {
                     errormessage.Text = "";
-                    //string address = textBoxAddress.Text;
-                    //SqlConnection con = new SqlConnection("Data Source=TESTPURU;Initial Catalog=Data;User ID=sa;Password=wintellect");
-                    //con.Open();
-                    //SqlCommand cmd = new SqlCommand("Insert into Registration (FirstName,LastName,Email,Password,Address) values('" + firstname + "','" + lastname + "','" + email + "','" + password + "','" + address + "')", con);
-                    //cmd.CommandType = CommandType.Text;
-                    //cmd.ExecuteNonQuery();
-                    //con.Close();
-                    errormessage.Text = "You have Registered successfully.";
+                    var user = new tblUser()
+                    {
+                        UserName = email,
+                        Password = password,
+                        LisencePlateNumber = licensePlate
+                    };
+
+                    var ressponse = userService.Register(user);
+                    if (ressponse == true)
+                    {
+                        errormessage.Text = "You have Registered successfully.";
+                    }
+                    else
+                    {
+                        errormessage.Text = "Something wrong, please try again!";
+                    }
                     Reset();
                 }
             }
         }
+
     }
 }
